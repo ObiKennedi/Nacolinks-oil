@@ -3,7 +3,7 @@ export const CONTACT = {
   phone: '+234 813 318 7315',
   phoneHref: 'tel:+2348133187315',
   whatsapp: 'https://wa.me/2348133187315',
-  email: 'contact@nacolinksoil.com',
+  email: 'contact@nacolinks.com',
   headOffice: 'No 1A Papa William’s Avenue, Umuguma, Owerri West L.G.A, Imo State, Nigeria.',
   branch: 'Umuokwe / Okwudor Road, Awo Omamma, Oru-East L.G.A, Imo State.',
   hours: 'Open daily · 6:00 AM – 10:00 PM', // TODO (client): confirm
