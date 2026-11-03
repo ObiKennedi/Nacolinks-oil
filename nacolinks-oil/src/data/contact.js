@@ -6,12 +6,12 @@ export const CONTACT = {
   email: 'contact@nacolinks.com',
   headOffice: 'No 1A Papa William’s Avenue, Umuguma, Owerri West L.G.A, Imo State, Nigeria.',
   branch: 'Umuokwe / Okwudor Road, Awo Omamma, Oru-East L.G.A, Imo State.',
-  hours: 'Open daily · 6:00 AM – 10:00 PM', // TODO (client): confirm
+  hours: 'Open daily · 6:00 AM – 10:00 PM',
 };
 
-// Form submissions: set VITE_CONTACT_ENDPOINT in .env to a Formspree / Web3Forms /
-// your-own-API URL that accepts JSON POSTs. Leave it empty and the form opens WhatsApp instead.
-export const CONTACT_ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT || '';
+// Web3Forms endpoint & Access Key
+export const CONTACT_ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT || 'https://api.web3forms.com/submit';
+export const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY || '0e478724-2214-4807-bfc9-0111b29153d7';
 
 export const ENQUIRY_TYPES = [
   'General enquiry',

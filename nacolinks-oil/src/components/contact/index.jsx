@@ -1,7 +1,7 @@
 import { useId, useState } from 'react';
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
-import { CONTACT, CONTACT_ENDPOINT, ENQUIRY_TYPES } from '../../data/contact';
+import { CONTACT, CONTACT_ENDPOINT, WEB3FORMS_ACCESS_KEY, ENQUIRY_TYPES } from '../../data/contact';
 import './index.scss';
 
 const CHANNELS = [
@@ -99,8 +99,8 @@ function ContactForm() {
       return;
     }
 
-    // No endpoint configured → hand off to WhatsApp
-    if (!CONTACT_ENDPOINT) {
+    // No endpoint or key configured → hand off to WhatsApp
+    if (!CONTACT_ENDPOINT || !WEB3FORMS_ACCESS_KEY) {
       window.open(whatsappLink(values), '_blank', 'noopener,noreferrer');
       setStatus('success');
       setValues(INITIAL);
@@ -113,9 +113,17 @@ function ContactForm() {
       const res = await fetch(CONTACT_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ ...payload, _subject: `Website enquiry: ${values.type}` }),
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          from_name: 'Nacolinks Oil & Gas Website',
+          subject: `New Enquiry from ${values.name} (${values.type})`,
+          ...payload,
+        }),
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success === false) {
+        throw new Error(data.message || `HTTP ${res.status}`);
+      }
       setStatus('success');
       setValues(INITIAL);
     } catch {
@@ -131,7 +139,7 @@ function ContactForm() {
         </span>
         <h3 className="contact__form-title">Thank you — we’ve got your message.</h3>
         <p className="contact__form-sub">
-          {CONTACT_ENDPOINT
+          {CONTACT_ENDPOINT && WEB3FORMS_ACCESS_KEY
             ? 'Our team will get back to you within one working day.'
             : 'Finish sending it in WhatsApp and our team will reply shortly.'}
         </p>
@@ -207,7 +215,7 @@ function ContactForm() {
         ) : (
           <>
             <Send size={18} aria-hidden="true" />
-            {CONTACT_ENDPOINT ? 'Send message' : 'Send via WhatsApp'}
+            {CONTACT_ENDPOINT && WEB3FORMS_ACCESS_KEY ? 'Send message' : 'Send via WhatsApp'}
           </>
         )}
       </button>
