@@ -1,0 +1,54 @@
+{
+  "updated": "2026-11-03T07:30:00Z",
+  "updatedText": "Today, 7:30 AM",
+  "currency": "NGN",
+  "currencySymbol": "₦",
+  "source": "Nacolinks Forecourt Pricing Network",
+  "station": "Owerri West & Awo Omamma Stations",
+  "prices": [
+    {
+      "code": "PMS",
+      "name": "Petrol",
+      "fullName": "Premium Motor Spirit",
+      "price": 1400,
+      "previous": 1450,
+      "unit": "litre",
+      "change": "down",
+      "bestFor": "Cars, motorcycles, private & commercial generators",
+      "description": "High-octane unadulterated petrol"
+    },
+    {
+      "code": "AGO",
+      "name": "Diesel",
+      "fullName": "Automotive Gas Oil",
+      "price": 1380,
+      "previous": 1380,
+      "unit": "litre",
+      "change": "same",
+      "bestFor": "Heavy trucks, logistics haulage, manufacturing power",
+      "description": "Low-sulfur premium diesel"
+    },
+    {
+      "code": "DPK",
+      "name": "Kerosene",
+      "fullName": "Dual Purpose Kerosene",
+      "price": 1420,
+      "previous": 1420,
+      "unit": "litre",
+      "change": "same",
+      "bestFor": "Household cooking, domestic heating, industrial cleaning",
+      "description": "Clean-burning household kerosene"
+    },
+    {
+      "code": "LPG",
+      "name": "Cooking Gas",
+      "fullName": "Liquefied Petroleum Gas",
+      "price": 1450,
+      "previous": 1400,
+      "unit": "kg",
+      "change": "up",
+      "bestFor": "Safe kitchen cooking, commercial bakeries, auto-gas conversion",
+      "description": "Clean cooking gas & auto-gas skids"
+    }
+  ]
+}

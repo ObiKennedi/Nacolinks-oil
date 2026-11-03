@@ -1,0 +1,515 @@
+// Nacolinks — Prices section (BEM)
+// Uses the --nl-* custom properties from _nacolinks-tokens.scss (loaded once globally).
+
+$bp-sm: 560px;
+$bp-tablet: 768px;
+$bp-desktop: 1100px;
+
+@mixin focus-ring {
+  outline: 3px solid var(--nl-focus-ring);
+  outline-offset: 2px;
+}
+
+.prices {
+  background: var(--nl-surface-alt);
+  color: var(--nl-ink);
+
+  &,
+  & *,
+  & *::before,
+  & *::after {
+    box-sizing: border-box;
+  }
+
+  &__container {
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding: var(--nl-space-16) var(--nl-space-4);
+
+    @media (min-width: $bp-tablet) {
+      padding: 96px var(--nl-space-8);
+    }
+  }
+
+  // ---------- Header ----------
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nl-space-4);
+    margin-bottom: var(--nl-space-12);
+
+    @media (min-width: $bp-tablet) {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  &__eyebrow {
+    margin: 0 0 var(--nl-space-3);
+    font-family: var(--nl-font-display);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--nl-primary);
+  }
+
+  &__title {
+    margin: 0 0 var(--nl-space-3);
+    max-width: 18ch;
+    font-family: var(--nl-font-display);
+    font-size: clamp(1.875rem, 4.5vw, 2.75rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+
+  &__lead {
+    margin: 0;
+    max-width: 52ch;
+    font-family: var(--nl-font-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--nl-ink-muted);
+  }
+
+  &__updated {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nl-space-2);
+    align-self: flex-start;
+    margin: 0;
+    padding: 8px 14px;
+    border: 1px solid var(--nl-border);
+    border-radius: var(--nl-radius-pill);
+    background: var(--nl-surface);
+    font-family: var(--nl-font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--nl-ink-muted);
+
+    svg {
+      color: var(--nl-primary);
+    }
+
+    @media (min-width: $bp-tablet) {
+      align-self: auto;
+    }
+  }
+
+  // ---------- Layout ----------
+  &__layout {
+    display: grid;
+    gap: var(--nl-space-6);
+
+    @media (min-width: $bp-desktop) {
+      grid-template-columns: 1fr 400px;
+      align-items: start;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    gap: var(--nl-space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @media (min-width: $bp-sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  // ---------- Card ----------
+  &__card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--nl-space-6);
+    border: 1px solid var(--nl-border);
+    border-radius: var(--nl-radius-lg);
+    background: var(--nl-surface);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      border-color: var(--nl-mint-300);
+      box-shadow: var(--nl-shadow-md);
+      transform: translateY(-2px);
+    }
+  }
+
+  &__card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--nl-space-4);
+  }
+
+  &__card-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--nl-radius-md);
+    background: var(--nl-navy-900);
+    color: var(--nl-gold-500);
+  }
+
+  &__code {
+    padding: 4px 10px;
+    border-radius: var(--nl-radius-pill);
+    background: var(--nl-surface-tint);
+    font-family: var(--nl-font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--nl-primary);
+  }
+
+  &__name {
+    margin: 0;
+    font-family: var(--nl-font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  &__full-name {
+    margin: 2px 0 var(--nl-space-4);
+    font-family: var(--nl-font-body);
+    font-size: 0.875rem;
+    color: var(--nl-ink-muted);
+  }
+
+  &__amount {
+    margin: 0 0 var(--nl-space-3);
+    font-family: var(--nl-font-display);
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__unit {
+    margin-left: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--nl-ink-muted);
+  }
+
+  &__change {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    margin-bottom: var(--nl-space-4);
+    padding: 4px 10px;
+    border-radius: var(--nl-radius-pill);
+    font-family: var(--nl-font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+
+    &--down {
+      background: var(--nl-mint-50);
+      color: var(--nl-green-800);
+    }
+    &--up {
+      background: #fdecec;
+      color: #a61f1f;
+    }
+    &--same {
+      background: var(--nl-gray-100);
+      color: var(--nl-gray-600);
+    }
+  }
+
+  &__best-for {
+    margin: auto 0 0;
+    padding-top: var(--nl-space-4);
+    border-top: 1px solid var(--nl-border);
+    font-family: var(--nl-font-body);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--nl-ink-muted);
+
+    strong {
+      color: var(--nl-ink);
+      font-weight: 600;
+    }
+  }
+
+  // ---------- Calculator ----------
+  &__calc {
+    position: relative;
+    overflow: hidden;
+    padding: var(--nl-space-6);
+    border-radius: var(--nl-radius-lg);
+    background: var(--nl-navy-900);
+    color: var(--nl-white);
+
+    @media (min-width: $bp-tablet) {
+      padding: var(--nl-space-8);
+    }
+
+    @media (min-width: $bp-desktop) {
+      position: sticky;
+      top: 140px;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto;
+      height: 6px;
+      background: var(--nl-stripe);
+    }
+  }
+
+  &__calc-head {
+    display: flex;
+    gap: var(--nl-space-3);
+    margin-bottom: var(--nl-space-6);
+  }
+
+  &__calc-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--nl-radius-md);
+    background: var(--nl-gold-500);
+    color: var(--nl-navy-900);
+  }
+
+  &__calc-title {
+    margin: 0;
+    font-family: var(--nl-font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  &__calc-sub {
+    margin: 2px 0 0;
+    font-family: var(--nl-font-body);
+    font-size: 0.875rem;
+    color: #c9d3df;
+  }
+
+  &__field {
+    margin: 0 0 var(--nl-space-6);
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: var(--nl-space-2);
+    padding: 0;
+    font-family: var(--nl-font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #c9d3df;
+  }
+
+  // Segmented control (radio buttons)
+  &__segment {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 4px;
+    padding: 4px;
+    border-radius: var(--nl-radius-md);
+    background: var(--nl-navy-800);
+
+    &--products {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(2, 1fr);
+
+      @media (min-width: $bp-sm) and (max-width: #{$bp-desktop - 1px}) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  }
+
+  &__segment-option {
+    position: relative;
+    cursor: pointer;
+
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    span {
+      display: block;
+      padding: 10px 8px;
+      border-radius: 6px;
+      font-family: var(--nl-font-display);
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-align: center;
+      color: #c9d3df;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    &:hover span {
+      color: var(--nl-white);
+    }
+
+    input:checked + span {
+      background: var(--nl-white);
+      color: var(--nl-navy-900);
+    }
+
+    input:focus-visible + span {
+      @include focus-ring;
+    }
+  }
+
+  &__input-wrap {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid var(--nl-navy-700);
+    border-radius: var(--nl-radius-md);
+    background: var(--nl-navy-950);
+    transition: border-color 0.15s ease;
+
+    &:focus-within {
+      border-color: var(--nl-gold-500);
+    }
+  }
+
+  &__input-affix {
+    padding: 0 var(--nl-space-4);
+    font-family: var(--nl-font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--nl-gold-500);
+  }
+
+  &__input {
+    flex: 1;
+    min-width: 0;
+    height: 52px;
+    padding: 0 var(--nl-space-4);
+    border: 0;
+    background: transparent;
+    font-family: var(--nl-font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--nl-white);
+    font-variant-numeric: tabular-nums;
+    appearance: textfield;
+
+    .prices__input-affix + & {
+      padding-left: 0;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      appearance: none;
+      margin: 0;
+    }
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--nl-space-2);
+    margin-top: var(--nl-space-3);
+  }
+
+  &__chip {
+    padding: 6px 12px;
+    border: 1px solid var(--nl-navy-700);
+    border-radius: var(--nl-radius-pill);
+    background: transparent;
+    font-family: var(--nl-font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #dce4ee;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      border-color: var(--nl-gray-400);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    &--active {
+      border-color: var(--nl-gold-500);
+      background: rgba(245, 170, 10, 0.12);
+      color: var(--nl-gold-500);
+    }
+  }
+
+  &__result {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: var(--nl-space-6);
+    border-radius: var(--nl-radius-md);
+    background: var(--nl-gold-500);
+    color: var(--nl-navy-900);
+  }
+
+  &__result-label {
+    font-family: var(--nl-font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  &__result-value {
+    font-family: var(--nl-font-display);
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
+    font-weight: 800;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__result-note {
+    font-family: var(--nl-font-body);
+    font-size: 0.8125rem;
+    color: rgba(3, 27, 53, 0.75);
+  }
+
+  // ---------- Footnote ----------
+  &__note {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--nl-space-2);
+    margin: var(--nl-space-8) 0 0;
+    font-family: var(--nl-font-body);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--nl-ink-muted);
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition: none !important;
+    }
+  }
+}

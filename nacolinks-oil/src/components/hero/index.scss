@@ -1,0 +1,398 @@
+// Nacolinks — Hero (BEM)
+// Uses the --nl-* custom properties from _nacolinks-tokens.scss (loaded once globally).
+
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+
+@mixin focus-ring {
+  outline: 3px solid var(--nl-focus-ring);
+  outline-offset: 3px;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--nl-navy-900);
+  color: var(--nl-white);
+
+  &,
+  & *,
+  & *::before,
+  & *::after {
+    box-sizing: border-box;
+  }
+
+  // ---------- Decorative bands ----------
+  &__bands {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    width: 70%;
+    height: 100%;
+    opacity: 0.35;
+
+    @media (min-width: $bp-desktop) {
+      width: 52%;
+      opacity: 1;
+    }
+  }
+
+  &__band {
+    &--blue { fill: var(--nl-blue-600); }
+    &--green { fill: var(--nl-green-600); }
+    &--gold { fill: var(--nl-gold-500); }
+    &--slab { fill: var(--nl-navy-800); }
+  }
+
+  // ---------- Layout ----------
+  &__container {
+    display: grid;
+    gap: var(--nl-space-12);
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding: var(--nl-space-12) var(--nl-space-4) var(--nl-space-16);
+
+    @media (min-width: $bp-tablet) {
+      padding-inline: var(--nl-space-8);
+    }
+
+    @media (min-width: $bp-desktop) {
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: var(--nl-space-16);
+      min-height: min(calc(100vh - 120px), 720px);
+      padding-block: var(--nl-space-16);
+    }
+  }
+
+  &__content {
+    max-width: 620px;
+  }
+
+  // ---------- Copy ----------
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nl-space-2);
+    margin: 0 0 var(--nl-space-6);
+    padding: 6px 14px 6px 10px;
+    border: 1px solid var(--nl-navy-700);
+    border-radius: var(--nl-radius-pill);
+    background: rgba(255, 255, 255, 0.04);
+    font-family: var(--nl-font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #dce4ee;
+
+    svg {
+      color: var(--nl-gold-500);
+    }
+  }
+
+  &__title {
+    margin: 0 0 var(--nl-space-6);
+    font-family: var(--nl-font-display);
+    font-size: clamp(2.5rem, 7vw, 4.25rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--nl-white);
+  }
+
+  &__title-accent {
+    display: block;
+    color: var(--nl-gold-500);
+  }
+
+  &__lead {
+    margin: 0 0 var(--nl-space-8);
+    max-width: 52ch;
+    font-family: var(--nl-font-body);
+    font-size: clamp(1rem, 2.2vw, 1.1875rem);
+    line-height: 1.6;
+    color: #c9d3df;
+  }
+
+  // ---------- Buttons ----------
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--nl-space-3);
+    margin-bottom: var(--nl-space-8);
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--nl-space-2);
+    min-height: 52px;
+    padding: 14px 26px;
+    border-radius: var(--nl-radius-md);
+    font-family: var(--nl-font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+
+    @media (max-width: 479px) {
+      flex: 1 1 100%;
+    }
+
+    &--primary {
+      background: var(--nl-gold-500);
+      color: var(--nl-navy-900);
+
+      &:hover {
+        background: #ffbd2e;
+      }
+    }
+
+    &--ghost {
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      color: var(--nl-white);
+
+      &:hover {
+        border-color: var(--nl-white);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      svg {
+        transition: transform 0.15s ease;
+      }
+      &:hover svg {
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  // ---------- Trust points ----------
+  &__trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--nl-space-3) var(--nl-space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nl-space-2);
+    font-family: var(--nl-font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #dce4ee;
+  }
+
+  &__trust-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--nl-radius-pill);
+    background: var(--nl-green-600);
+    color: var(--nl-white);
+  }
+
+  // ---------- Price board ----------
+  &__board {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 460px;
+    padding: var(--nl-space-6);
+    border-radius: var(--nl-radius-lg);
+    background: var(--nl-white);
+    color: var(--nl-navy-900);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+
+    @media (min-width: $bp-tablet) {
+      padding: var(--nl-space-8);
+    }
+
+    @media (min-width: $bp-desktop) {
+      justify-self: end;
+    }
+
+    // Signature stripe along the top edge
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto;
+      height: 6px;
+      background: var(--nl-stripe);
+    }
+  }
+
+  &__board-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--nl-space-4);
+    margin-bottom: var(--nl-space-6);
+  }
+
+  &__board-label {
+    margin: 0 0 4px;
+    font-family: var(--nl-font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--nl-green-600);
+  }
+
+  &__board-title {
+    margin: 0;
+    font-family: var(--nl-font-display);
+    font-size: 1.375rem;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  &__live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--nl-radius-pill);
+    background: var(--nl-mint-50);
+    font-family: var(--nl-font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--nl-green-800);
+  }
+
+  &__live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--nl-green-500);
+    animation: hero-pulse 1.8s ease-out infinite;
+  }
+
+  &__prices {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__price {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: var(--nl-space-3);
+    padding: var(--nl-space-4) 0;
+    border-top: 1px solid var(--nl-gray-200);
+
+    &:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+  }
+
+  &__price-code {
+    display: inline-flex;
+    justify-content: center;
+    min-width: 48px;
+    padding: 5px 8px;
+    border-radius: var(--nl-radius-pill);
+    background: var(--nl-mint-50);
+    font-family: var(--nl-font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--nl-green-600);
+  }
+
+  &__price-name {
+    font-family: var(--nl-font-body);
+    font-size: 0.9375rem;
+    color: var(--nl-gray-600);
+  }
+
+  &__price-value {
+    font-family: var(--nl-font-display);
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+
+    small {
+      margin-left: 2px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--nl-gray-600);
+    }
+  }
+
+  &__price-change {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--nl-radius-pill);
+
+    &--down {
+      background: var(--nl-mint-50);
+      color: var(--nl-green-600);
+    }
+    &--up {
+      background: #fdecec;
+      color: var(--nl-red-600);
+    }
+    &--same {
+      background: var(--nl-gray-100);
+      color: var(--nl-gray-600);
+    }
+  }
+
+  &__board-foot {
+    margin: var(--nl-space-4) 0 0;
+    padding-top: var(--nl-space-4);
+    border-top: 1px solid var(--nl-gray-200);
+    font-family: var(--nl-font-body);
+    font-size: 0.8125rem;
+    color: var(--nl-gray-600);
+  }
+
+  &__sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+
+@keyframes hero-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(4, 143, 88, 0.55); }
+  70% { box-shadow: 0 0 0 8px rgba(4, 143, 88, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(4, 143, 88, 0); }
+}

@@ -1,0 +1,191 @@
+// =============================================================================
+// Nacolinks Oil & Gas Ltd. — Design tokens
+// Colors sampled from the official letterhead (RC 1075987).
+// Usage: @use 'nacolinks-tokens' as nl;  then  color: var(--nl-ink);
+// =============================================================================
+
+@use 'sass:map';
+
+// -----------------------------------------------------------------------------
+// 1. Raw palette (SCSS map — for loops, functions, email inlining)
+// -----------------------------------------------------------------------------
+$palette: (
+  // Navy — wordmark, corner wedges, footer
+  'navy-950': #021428,
+  'navy-900': #031b35, // Wordmark ink. Primary text & dark surfaces.
+  'navy-800': #032445, // Letterhead corner wedges.
+  'navy-700': #0b3460,
+  'blue-600': #03447a, // Left stroke of the "N" mark. Links, info.
+  'blue-400': #6fa8dc, // Links/info on dark surfaces.
+
+  // Green — right stroke of the mark, swooshes
+  'green-800': #065c3f, // Button hover, deep green bands.
+  'green-600': #07764b, // PRIMARY. Buttons, active states. White text 5.7:1.
+  'green-500': #048f58, // Highlights & icons only (white text fails at body size).
+  'green-300': #3cc48a, // Primary on dark surfaces.
+
+  // Gold — the flame / underline swoosh
+  'gold-500': #f5aa0a,  // ACCENT. Fills, stripes, badges. Never as text on white.
+  'gold-600': #c78900,
+  'gold-700': #8a5e00,  // Gold-toned text on white (5.7:1).
+  'gold-100': #fff4d6,
+
+  // Refinery tint — the pale refinery silhouette
+  'mint-300': #accebe,
+  'mint-100': #dcebe4,
+  'mint-50':  #eef5f1,
+
+  // Oil black — the drop
+  'oil':      #111111,
+
+  // Neutrals
+  'white':    #ffffff,
+  'gray-50':  #f6f8fa,
+  'gray-100': #eef1f5,
+  'gray-200': #e3e8ee,
+  'gray-400': #9aa7b8,
+  'gray-600': #5b6675,
+  'gray-800': #2b3442,
+
+  // Status
+  'red-600':  #c62828,
+  'red-300':  #ff6b6b,
+);
+
+@function color($name) {
+  @if not map.has-key($palette, $name) {
+    @error 'Unknown Nacolinks color `#{$name}`.';
+  }
+  @return map.get($palette, $name);
+}
+
+// -----------------------------------------------------------------------------
+// 2. CSS custom properties
+// -----------------------------------------------------------------------------
+:root {
+  // Raw palette → --nl-<name>
+  @each $name, $value in $palette {
+    --nl-#{$name}: #{$value};
+  }
+
+  // Semantic — light (default)
+  --nl-surface:        var(--nl-white);
+  --nl-surface-alt:    var(--nl-gray-50);
+  --nl-surface-tint:   var(--nl-mint-50);
+  --nl-surface-inverse:var(--nl-navy-900);
+
+  --nl-ink:            var(--nl-navy-900);
+  --nl-ink-muted:      var(--nl-gray-600);
+  --nl-ink-inverse:    var(--nl-white);
+
+  --nl-border:         var(--nl-gray-200);
+  --nl-border-strong:  var(--nl-gray-400);
+
+  --nl-primary:        var(--nl-green-600);
+  --nl-primary-hover:  var(--nl-green-800);
+  --nl-on-primary:     var(--nl-white);
+
+  --nl-secondary:      var(--nl-navy-900);
+  --nl-on-secondary:   var(--nl-white);
+
+  --nl-accent:         var(--nl-gold-500);
+  --nl-on-accent:      var(--nl-navy-900);
+  --nl-accent-text:    var(--nl-gold-700);
+
+  --nl-link:           var(--nl-blue-600);
+  --nl-success:        var(--nl-green-600);
+  --nl-warning:        var(--nl-gold-700);
+  --nl-danger:         var(--nl-red-600);
+  --nl-focus-ring:     var(--nl-gold-500);
+
+  // Signature stripe (letterhead swoosh) — use for top bars & dividers
+  --nl-stripe: linear-gradient(
+    90deg,
+    var(--nl-navy-800) 0 40%,
+    var(--nl-green-600) 40% 75%,
+    var(--nl-gold-500) 75% 100%
+  );
+
+  // Typography
+  --nl-font-display: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  --nl-font-body:    'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
+  --nl-font-mono:    'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+  --nl-text-display: 3.5rem;   // 56px / 800
+  --nl-text-h1:      2.5rem;   // 40px / 800
+  --nl-text-h2:      2rem;     // 32px / 700
+  --nl-text-h3:      1.5rem;   // 24px / 700
+  --nl-text-h4:      1.25rem;  // 20px / 700
+  --nl-text-body:    1rem;     // 16px / 400
+  --nl-text-small:   0.875rem; // 14px / 400
+  --nl-text-caption: 0.75rem;  // 12px / 600, uppercase, +0.08em
+
+  // Spacing (4px base)
+  --nl-space-1: 4px;
+  --nl-space-2: 8px;
+  --nl-space-3: 12px;
+  --nl-space-4: 16px;
+  --nl-space-6: 24px;
+  --nl-space-8: 32px;
+  --nl-space-12: 48px;
+  --nl-space-16: 64px;
+
+  // Radius — the mark is a rounded pill; UI stays moderately rounded
+  --nl-radius-sm: 4px;
+  --nl-radius-md: 8px;
+  --nl-radius-lg: 16px;
+  --nl-radius-pill: 999px;
+
+  // Elevation
+  --nl-shadow-sm: 0 1px 2px rgba(3, 27, 53, 0.08);
+  --nl-shadow-md: 0 4px 16px rgba(3, 27, 53, 0.10);
+  --nl-shadow-lg: 0 12px 32px rgba(3, 27, 53, 0.14);
+}
+
+// Semantic — dark
+[data-theme='dark'] {
+  --nl-surface:        var(--nl-navy-950);
+  --nl-surface-alt:    var(--nl-navy-900);
+  --nl-surface-tint:   var(--nl-navy-800);
+  --nl-surface-inverse:var(--nl-white);
+
+  --nl-ink:            #f3f6fa;
+  --nl-ink-muted:      var(--nl-gray-400);
+  --nl-ink-inverse:    var(--nl-navy-900);
+
+  --nl-border:         var(--nl-navy-700);
+  --nl-border-strong:  #2c4f78;
+
+  --nl-primary:        var(--nl-green-300);
+  --nl-primary-hover:  #62d4a2;
+  --nl-on-primary:     var(--nl-navy-900);
+
+  --nl-secondary:      var(--nl-white);
+  --nl-on-secondary:   var(--nl-navy-900);
+
+  --nl-accent-text:    var(--nl-gold-500);
+  --nl-link:           var(--nl-blue-400);
+  --nl-success:        var(--nl-green-300);
+  --nl-warning:        var(--nl-gold-500);
+  --nl-danger:         var(--nl-red-300);
+}
+
+// -----------------------------------------------------------------------------
+// 3. Mixins
+// -----------------------------------------------------------------------------
+@mixin stripe($height: 6px) {
+  height: $height;
+  background: var(--nl-stripe);
+}
+
+@mixin focus-ring {
+  outline: 3px solid var(--nl-focus-ring);
+  outline-offset: 2px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}

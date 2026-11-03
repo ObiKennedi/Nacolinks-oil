@@ -1,0 +1,459 @@
+// Nacolinks — Header (BEM)
+// Requires _nacolinks-tokens.scss to be loaded ONCE globally (e.g. @use it in app/globals.scss)
+// so the --nl-* custom properties exist. Mixins are local so this file doesn't re-emit :root.
+
+$bp-desktop: 1024px;
+$bar-height: 80px;
+
+@mixin stripe($h) {
+  height: $h;
+  background: var(--nl-stripe);
+}
+
+@mixin focus-ring {
+  outline: 3px solid var(--nl-focus-ring);
+  outline-offset: 2px;
+}
+
+$bar-height-mobile: 64px;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--nl-surface);
+  transition: box-shadow 0.2s ease;
+
+  &,
+  & *,
+  & *::before,
+  & *::after {
+    box-sizing: border-box;
+  }
+
+  &--scrolled {
+    box-shadow: var(--nl-shadow-md);
+  }
+
+  // ---------- Layout ----------
+  &__container {
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: var(--nl-space-4);
+
+    @media (min-width: 768px) {
+      padding-inline: var(--nl-space-8);
+    }
+  }
+
+  &__stripe {
+    @include stripe(4px);
+  }
+
+  // ---------- Top bar (desktop) ----------
+  &__topbar {
+    display: none;
+    background: var(--nl-navy-900);
+    color: #dce4ee;
+    font-family: var(--nl-font-body);
+    font-size: var(--nl-text-caption);
+
+    @media (min-width: $bp-desktop) {
+      display: block;
+    }
+  }
+
+  &__topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 36px;
+  }
+
+  &__topbar-text {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nl-space-2);
+    margin: 0;
+
+    .header__icon {
+      color: var(--nl-gold-500);
+    }
+  }
+
+  &__topbar-right {
+    display: flex;
+    align-items: center;
+    gap: var(--nl-space-4);
+  }
+
+  &__topbar-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nl-space-2);
+    color: var(--nl-white);
+    font-weight: 600;
+    text-decoration: none;
+
+    .header__icon {
+      color: var(--nl-gold-500);
+    }
+
+    &:hover {
+      color: var(--nl-gold-500);
+    }
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  // ---------- Main bar ----------
+  &__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--nl-space-6);
+    height: $bar-height-mobile;
+    border-bottom: 1px solid var(--nl-border);
+
+    @media (min-width: $bp-desktop) {
+      height: $bar-height;
+    }
+  }
+
+  &__brand {
+    display: flex;
+    flex-shrink: 0;
+    border-radius: var(--nl-radius-sm);
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  &__logo {
+    width: auto;
+    height: 48px;
+
+    @media (min-width: $bp-desktop) {
+      height: 64px;
+    }
+  }
+
+  // ---------- Desktop nav ----------
+  &__nav {
+    display: none;
+
+    @media (min-width: $bp-desktop) {
+      display: block;
+    }
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: var(--nl-space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__link {
+    position: relative;
+    display: block;
+    padding: var(--nl-space-2) var(--nl-space-3);
+    border-radius: var(--nl-radius-sm);
+    font-family: var(--nl-font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--nl-ink);
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    // Gold underline — echoes the letterhead swoosh
+    &::after {
+      content: '';
+      position: absolute;
+      left: var(--nl-space-3);
+      right: var(--nl-space-3);
+      bottom: 2px;
+      height: 3px;
+      border-radius: var(--nl-radius-pill);
+      background: var(--nl-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      color: var(--nl-primary);
+    }
+    &:hover::after {
+      transform: scaleX(1);
+    }
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    &--active {
+      color: var(--nl-primary);
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  // ---------- Actions ----------
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--nl-space-3);
+  }
+
+  &__cta {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: var(--nl-space-2);
+    padding: 12px 22px;
+    border-radius: var(--nl-radius-md);
+    background: var(--nl-primary);
+    color: var(--nl-on-primary);
+    font-family: var(--nl-font-display);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: var(--nl-primary-hover);
+    }
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    @media (min-width: 640px) {
+      display: inline-flex;
+    }
+
+    &--block {
+      display: flex;
+      width: 100%;
+      padding-block: 14px;
+    }
+  }
+
+  // ---------- Hamburger ----------
+  &__toggle {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--nl-border);
+    border-radius: var(--nl-radius-md);
+    background: var(--nl-surface);
+    color: var(--nl-ink);
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: var(--nl-surface-alt);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    @media (min-width: $bp-desktop) {
+      display: none;
+    }
+  }
+
+  // ---------- Mobile drawer ----------
+  &__overlay {
+    position: fixed;
+    inset: 0;
+    top: calc(#{$bar-height-mobile} + 4px);
+    background: rgba(3, 27, 53, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s;
+
+    @media (min-width: $bp-desktop) {
+      display: none;
+    }
+  }
+
+  &__drawer {
+    position: fixed;
+    top: calc(#{$bar-height-mobile} + 4px);
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 380px);
+    background: var(--nl-surface);
+    box-shadow: var(--nl-shadow-lg);
+    overflow-y: auto;
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.3s;
+
+    @media (min-width: $bp-desktop) {
+      display: none;
+    }
+  }
+
+  &--open &__overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &--open &__drawer {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  &__drawer-list {
+    margin: 0;
+    padding: var(--nl-space-2) 0;
+    list-style: none;
+  }
+
+  &__drawer-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--nl-space-4) var(--nl-space-6);
+    border-left: 4px solid transparent;
+    font-family: var(--nl-font-display);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--nl-ink);
+    text-decoration: none;
+
+    .header__icon--chevron {
+      color: var(--nl-ink-muted);
+    }
+
+    &:hover {
+      background: var(--nl-surface-alt);
+    }
+    &:focus-visible {
+      outline: 3px solid var(--nl-focus-ring);
+      outline-offset: -3px;
+    }
+
+    &--active {
+      border-left-color: var(--nl-accent);
+      background: var(--nl-surface-tint);
+      color: var(--nl-primary);
+
+      .header__icon--chevron {
+        color: var(--nl-primary);
+      }
+    }
+  }
+
+  &__drawer-footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nl-space-4);
+    margin-top: auto;
+    padding: var(--nl-space-6);
+    border-top: 1px solid var(--nl-border);
+  }
+
+  &__drawer-phone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--nl-space-2);
+    font-family: var(--nl-font-body);
+    font-weight: 600;
+    color: var(--nl-ink);
+    text-decoration: none;
+
+    .header__icon {
+      color: var(--nl-primary);
+    }
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  &__icon {
+    flex-shrink: 0;
+  }
+
+  // ---------- Social icons (react-icons) ----------
+  &__socials {
+    display: flex;
+    align-items: center;
+    gap: var(--nl-space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &--topbar {
+      padding-left: var(--nl-space-4);
+      border-left: 1px solid var(--nl-navy-700);
+    }
+
+    &--drawer {
+      justify-content: center;
+    }
+  }
+
+  &__social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--nl-radius-pill);
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    .header__socials--topbar & {
+      width: 26px;
+      height: 26px;
+      font-size: 13px;
+      color: #dce4ee;
+
+      &:hover {
+        background: var(--nl-gold-500);
+        color: var(--nl-navy-900);
+      }
+    }
+
+    .header__socials--drawer & {
+      width: 40px;
+      height: 40px;
+      font-size: 17px;
+      background: var(--nl-surface-tint);
+      color: var(--nl-primary);
+
+      &:hover {
+        background: var(--nl-primary);
+        color: var(--nl-on-primary);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition: none !important;
+    }
+  }
+}
